@@ -32,6 +32,21 @@ public class MainMenuController : MonoBehaviour
         PlayerPrefs.SetString("Username", username); // Save username for later use
     }
 
+    public void LevelModeButtonClicked()
+    {
+        string username = usernameInput.text.Trim();
+
+        if (!Regex.IsMatch(username, usernamePattern))
+        {
+            ShowError("Please enter a valid username (3–16 letters, numbers, or _)");
+            return;
+        }
+
+        PlayerPrefs.SetInt("isLevelMode", 1);
+        SceneManager.LoadScene("LevelModeScene");
+        PlayerPrefs.SetString("Username", username); // Save username for later use
+    }
+
     public void HighScoreButtonClicked()
     {
         SceneManager.LoadScene("HighscoreScene");

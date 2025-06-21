@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            currentLevelObjects = levelObstacleSets[0].obstacles; // Default
+            currentLevelObjects = objectsToSpawn;// Default
         }
     }
 
@@ -135,8 +135,19 @@ public class GameController : MonoBehaviour
         target.eulerAngles = new Vector3(0, 0, endZ); // Ensure exact final value
     }
     void LoadObjectsForLevel(int level)
+{
+    int index = level - 1;
+
+    if (index >= 0 && index < levelObstacleSets.Length)
     {
-        int index = level - 1;
         currentLevelObjects = levelObstacleSets[index].obstacles;
+        Debug.Log($"Loaded {currentLevelObjects.Length} objects for level {level}");
     }
+    else
+    {
+        Debug.LogWarning($"Invalid level index: {index}, using default obstacles.");
+        currentLevelObjects = objectsToSpawn;
+    }
+}
+
 }

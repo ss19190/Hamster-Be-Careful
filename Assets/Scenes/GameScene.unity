@@ -1312,6 +1312,13 @@ MonoBehaviour:
     - {fileID: 5400017985410230097, guid: ce834805a3bdea542a074be65166b3d1, type: 3}
     - {fileID: 5400017985410230097, guid: 812a317ce9857b64caf20f44b930945f, type: 3}
     - {fileID: 5400017985410230097, guid: d722e68c5c617aa46af6f97dd050453a, type: 3}
+  - obstacles:
+    - {fileID: 5400017985410230097, guid: 697fef8c44d1a4443898224a58265d59, type: 3}
+    - {fileID: 5400017985410230097, guid: e1343efc33a040f43995c4c823401d14, type: 3}
+    - {fileID: 5400017985410230097, guid: ca5bd44fc01c6ca418ff375ae5729d39, type: 3}
+  - obstacles:
+    - {fileID: 5400017985410230097, guid: ce834805a3bdea542a074be65166b3d1, type: 3}
+    - {fileID: 5400017985410230097, guid: e1343efc33a040f43995c4c823401d14, type: 3}
 --- !u!1 &1295430783
 GameObject:
   m_ObjectHideFlags: 0
