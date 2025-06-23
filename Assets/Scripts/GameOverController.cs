@@ -30,18 +30,16 @@ public class GameOverController : MonoBehaviour
 
         if (isLevelMode)
         {
-            if (distanceInt > 500) {
-                endText.text = "You passed!!!";
-            }
-            else
-                endText.text = "Sorry ;-;";
-        } else
+            levelModeLevel = PlayerPrefs.GetInt("LevelModeLevel", 1);
+            endText.text = "Level " + levelModeLevel + " Completed!"; 
+        }
+        else
             SaveHighScore();
     }
 
     public void SaveHighScore()
     {
-        string username = PlayerPrefs.GetString("Username"); 
+        string username = PlayerPrefs.GetString("Username");
         string path = Application.persistentDataPath + "/highscores.txt";
 
         string entry = $"{username}:{distanceString}:{timeString};";
@@ -57,5 +55,7 @@ public class GameOverController : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    
 }
 

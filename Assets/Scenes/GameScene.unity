@@ -1295,6 +1295,7 @@ MonoBehaviour:
   - {fileID: 1564025128}
   - {fileID: 1599076214}
   distanceText: {fileID: 518880460}
+  goalText: {fileID: 1295430785}
   distance: 0
   hearts:
   - {fileID: 5791110472545895314}
@@ -1310,15 +1311,37 @@ MonoBehaviour:
   levelObstacleSets:
   - obstacles:
     - {fileID: 5400017985410230097, guid: ce834805a3bdea542a074be65166b3d1, type: 3}
+    - {fileID: 5400017985410230097, guid: 5b371eab6f5f84442ba2658804be53c8, type: 3}
+    - {fileID: 5400017985410230097, guid: e1343efc33a040f43995c4c823401d14, type: 3}
     - {fileID: 5400017985410230097, guid: 812a317ce9857b64caf20f44b930945f, type: 3}
+    - {fileID: 5400017985410230097, guid: ca5bd44fc01c6ca418ff375ae5729d39, type: 3}
+  - obstacles:
+    - {fileID: 5400017985410230097, guid: d722e68c5c617aa46af6f97dd050453a, type: 3}
+    - {fileID: 5400017985410230097, guid: 812a317ce9857b64caf20f44b930945f, type: 3}
+    - {fileID: 5400017985410230097, guid: b44898fad69b5ed48aee9ac6a776e2b5, type: 3}
+  - obstacles:
+    - {fileID: 5400017985410230097, guid: 697fef8c44d1a4443898224a58265d59, type: 3}
+    - {fileID: 5400017985410230097, guid: ce834805a3bdea542a074be65166b3d1, type: 3}
+    - {fileID: 5400017985410230097, guid: ca5bd44fc01c6ca418ff375ae5729d39, type: 3}
+    - {fileID: 5400017985410230097, guid: 5b371eab6f5f84442ba2658804be53c8, type: 3}
     - {fileID: 5400017985410230097, guid: d722e68c5c617aa46af6f97dd050453a, type: 3}
   - obstacles:
     - {fileID: 5400017985410230097, guid: 697fef8c44d1a4443898224a58265d59, type: 3}
-    - {fileID: 5400017985410230097, guid: e1343efc33a040f43995c4c823401d14, type: 3}
-    - {fileID: 5400017985410230097, guid: ca5bd44fc01c6ca418ff375ae5729d39, type: 3}
-  - obstacles:
     - {fileID: 5400017985410230097, guid: ce834805a3bdea542a074be65166b3d1, type: 3}
-    - {fileID: 5400017985410230097, guid: e1343efc33a040f43995c4c823401d14, type: 3}
+    - {fileID: 5400017985410230097, guid: ca5bd44fc01c6ca418ff375ae5729d39, type: 3}
+    - {fileID: 5400017985410230097, guid: 812a317ce9857b64caf20f44b930945f, type: 3}
+    - {fileID: 5400017985410230097, guid: 812a317ce9857b64caf20f44b930945f, type: 3}
+  - obstacles:
+    - {fileID: 5400017985410230097, guid: 697fef8c44d1a4443898224a58265d59, type: 3}
+    - {fileID: 5400017985410230097, guid: b44898fad69b5ed48aee9ac6a776e2b5, type: 3}
+    - {fileID: 5400017985410230097, guid: 812a317ce9857b64caf20f44b930945f, type: 3}
+    - {fileID: 5400017985410230097, guid: 812a317ce9857b64caf20f44b930945f, type: 3}
+  goals:
+  - Finish 1000m in 30s
+  - Hit 10 obstacles and don't die
+  - Pick up each of 5 powerups in a single run
+  - Reach 1000m without collecting anything
+  - Use a TNT to destroy an obstacle, then hit a log
 --- !u!1 &1295430783
 GameObject:
   m_ObjectHideFlags: 0

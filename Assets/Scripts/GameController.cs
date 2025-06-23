@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public GameObject[] objectsToSpawn;
     public GameObject[] spawners;
     public Text distanceText;
+    public Text goalText;
     public float distance;
     public GameObject[] hearts;
     public int heartCount;
@@ -26,6 +27,7 @@ public class GameController : MonoBehaviour
     private GameObject[] currentLevelObjects;
     private int levelModeLevel = 1;
     bool isLevelMode;
+    public string[] goals;
 
     [System.Serializable]
     public class LevelObstacleSet
@@ -49,6 +51,7 @@ public class GameController : MonoBehaviour
         {
             levelModeLevel = PlayerPrefs.GetInt("LevelModeLevel", 1);
             LoadObjectsForLevel(levelModeLevel);
+            goalText.text = "Goal: " + goals[levelModeLevel - 1];
         }
         else
         {
@@ -67,17 +70,17 @@ public class GameController : MonoBehaviour
             spawnObject(currentLevelObjects);
             timeSinceLastSpawn = 0;
         }
+
         timeSinceLastSpawn += Time.deltaTime;
         distanceText.text = "Distance: " + distance.ToString("F2");
         distance += newSpeed * Time.deltaTime;
         newSpeed += 0.1f * Time.deltaTime; // Increase speed over time 
         timer += Time.deltaTime;
         timeText.text = "Time: " + Mathf.FloorToInt(timer).ToString("F2"); 
-    }
-
-    void deserializeFromPlayerPrefs()
-    {
-
+        if (isLevelMode)
+        {
+            checkGoal(levelModeLevel);
+        }
     }
 
     void spawnObject(GameObject[] objectsToSpawn)
@@ -135,19 +138,36 @@ public class GameController : MonoBehaviour
         target.eulerAngles = new Vector3(0, 0, endZ); // Ensure exact final value
     }
     void LoadObjectsForLevel(int level)
-{
-    int index = level - 1;
+    {
+        int index = level - 1;
 
-    if (index >= 0 && index < levelObstacleSets.Length)
-    {
-        currentLevelObjects = levelObstacleSets[index].obstacles;
-        Debug.Log($"Loaded {currentLevelObjects.Length} objects for level {level}");
+        if (index >= 0 && index < levelObstacleSets.Length)
+        {
+            currentLevelObjects = levelObstacleSets[index].obstacles;
+            Debug.Log($"Loaded {currentLevelObjects.Length} objects for level {level}");
+        }
+        else
+        {
+            Debug.LogWarning($"Invalid level index: {index}, using default obstacles.");
+            currentLevelObjects = objectsToSpawn;
+        }
+
     }
-    else
+
+    public bool checkGoal(int level)
     {
-        Debug.LogWarning($"Invalid level index: {index}, using default obstacles.");
-        currentLevelObjects = objectsToSpawn;
+        switch (level)
+        {
+            case 1:
+                if (distanceInt > 1000)
+                    return true;
+                else
+                    return false;
+            default:
+                return false;
+
+        }
+
     }
-}
 
 }
