@@ -29,6 +29,14 @@ public class GameController : MonoBehaviour
     bool isLevelMode;
     public string[] goals;
 
+    [Header("Powerup Goal Settings")]
+    public bool[] powerupsCollected = new bool[5];
+    private bool hasCollectedAnything = false;
+
+    public bool tntTaken;
+    private bool logHitAfterTnt;
+
+
     [System.Serializable]
     public class LevelObstacleSet
     {
@@ -38,6 +46,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hasCollectedAnything = false;
+        PlayerPrefs.SetInt("Obstacles taken", 0);
         heartCount = 2;
         timeSinceLastSpawn = 0f;
         distance = 0;
@@ -46,17 +56,22 @@ public class GameController : MonoBehaviour
         tnt.SetActive(false);
         PlayerPrefs.SetInt("Ball taken", 0);
         isLevelMode = PlayerPrefs.GetInt("isLevelMode", 0) == 1;
+        tntTaken = false;
+        logHitAfterTnt = false;
         Debug.Log(isLevelMode);
         if (isLevelMode)
         {
             levelModeLevel = PlayerPrefs.GetInt("LevelModeLevel", 1);
             LoadObjectsForLevel(levelModeLevel);
+            goalText.gameObject.SetActive(true);
             goalText.text = "Goal: " + goals[levelModeLevel - 1];
         }
         else
         {
             currentLevelObjects = objectsToSpawn;// Default
+            goalText.gameObject.SetActive(false);
         }
+        
     }
 
     // Update is called once per frame
@@ -76,7 +91,7 @@ public class GameController : MonoBehaviour
         distance += newSpeed * Time.deltaTime;
         newSpeed += 0.1f * Time.deltaTime; // Increase speed over time 
         timer += Time.deltaTime;
-        timeText.text = "Time: " + Mathf.FloorToInt(timer).ToString("F2"); 
+        timeText.text = "Time: " + timer.ToString("F2"); 
         if (isLevelMode)
         {
             checkGoal(levelModeLevel);
@@ -95,15 +110,58 @@ public class GameController : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Objects"))
         {
+            if (collision.CompareTag("Log")) {
+                Debug.Log("Log hit");
+                if(tntTaken)
+                {
+                    logHitAfterTnt = true;
+                }
+            }
+
             ObjectBase obj = collision.GetComponent<ObjectBase>();
             if (obj != null)
             {
                 Debug.Log("Object met: " + obj.name);
                 obj.OnPlayerHit(this);
+
+                // Check if it's a powerup
+                Powerups powerup = obj as Powerups;
+                if (powerup != null)
+                {
+
+                    hasCollectedAnything = true; 
+                    int index = powerup.powerupType;
+                    if (index >= 0 && index < powerupsCollected.Length)
+                    {
+                        powerupsCollected[index] = true;
+                        Debug.Log("Collected powerup at index: " + index);
+
+                        // Check if all powerups were collected
+                        bool allCollected = true;
+                        foreach (bool collected in powerupsCollected)
+                        {
+                            if (!collected)
+                            {
+                                allCollected = false;
+                                break;
+                            }
+                        }
+
+                        if (allCollected)
+                        {
+                            Debug.Log("All powerups collected!");
+                            PlayerPrefs.SetInt("GoalReached", 1);
+                            PlayerPrefs.SetFloat("Final Time", timer);
+                            SceneManager.LoadScene("GameOverScene");
+                        }
+                    }
+                }
+
                 Destroy(collision.gameObject);
             }
         }
     }
+
 
     IEnumerator RotateHamster()
     {
@@ -154,20 +212,77 @@ public class GameController : MonoBehaviour
 
     }
 
-    public bool checkGoal(int level)
+    public void checkGoal(int level)
     {
         switch (level)
         {
             case 1:
-                if (distanceInt > 1000)
-                    return true;
-                else
-                    return false;
+                if (distance >= 1000f)
+                {
+                    PlayerPrefs.SetInt("GoalReached", 1);
+                    PlayerPrefs.SetFloat("Final Time", (float)timer);
+                    SceneManager.LoadScene("GameOverScene");
+                }
+                else if (timer >= 30f)
+                {
+                    PlayerPrefs.SetInt("GoalReached", 0);
+                    PlayerPrefs.SetFloat("Final Time", (float)timer);
+                    SceneManager.LoadScene("GameOverScene");
+                }
+                break;
+            case 2:
+                if(PlayerPrefs.GetInt("Obstacles taken") >= 10)
+                {
+                    PlayerPrefs.SetInt("GoalReached", 1);
+                    PlayerPrefs.SetFloat("Final Time", (float)timer);
+                    SceneManager.LoadScene("GameOverScene");
+                }
+                break;
+            case 3:
+                bool allCollected = true;
+                foreach (bool collected in powerupsCollected)
+                {
+                    if (!collected)
+                    {
+                        allCollected = false;
+                        break;
+                    }
+                }
+
+                if (allCollected)
+                {
+                    PlayerPrefs.SetInt("GoalReached", 1);
+                    PlayerPrefs.SetFloat("Final Time", timer);
+                    SceneManager.LoadScene("GameOverScene");
+                }
+                break;
+            case 4:
+                if (hasCollectedAnything)
+                {
+                    PlayerPrefs.SetInt("GoalReached", 0);
+                    PlayerPrefs.SetFloat("Final Time", timer);
+                    SceneManager.LoadScene("GameOverScene");
+                }
+                else if(distance >=1000f)
+                {
+                    PlayerPrefs.SetInt("GoalReached", 1);
+                    PlayerPrefs.SetFloat("Final Time", timer);
+                    SceneManager.LoadScene("GameOverScene");
+                }
+                break;
+            case 5:
+                if (logHitAfterTnt)
+                {
+                    PlayerPrefs.SetInt("GoalReached", 1);
+                    PlayerPrefs.SetFloat("Final Time", timer);
+                    SceneManager.LoadScene("GameOverScene");
+                }
+                break;
+
             default:
-                return false;
-
+                break;
         }
-
     }
+
 
 }

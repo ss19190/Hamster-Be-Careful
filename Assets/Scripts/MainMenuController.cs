@@ -52,6 +52,11 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene("HighscoreScene");
     }
 
+    public void StatisticsButtonClicked()
+    {
+        SceneManager.LoadScene("StatisticsScene");
+    }
+
     public void ShowError(string message)
     {
         errorMessageText.text = message;

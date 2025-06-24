@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class Apple : Powerups
 {
+    public Apple()
+    {
+        powerupType = 0;
+    }
+
     public override void OnPlayerHit(GameController controller)
     {
 

@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public abstract class Powerups : ObjectBase
 {
+    public int powerupType;
     protected void AddHeart(GameController controller)
     {
         if (controller.heartCount < 2)

@@ -304,7 +304,10 @@ MonoBehaviour:
   distanceText: {fileID: 1081152165}
   timeText: {fileID: 1645219496}
   endText: {fileID: 1207455011}
+  buttonText: {fileID: 1560068546}
   isLevelMode: 0
+  levelModeLevel: 0
+  restartButton: {fileID: 1924181960}
 --- !u!1 &448244533
 GameObject:
   m_ObjectHideFlags: 0

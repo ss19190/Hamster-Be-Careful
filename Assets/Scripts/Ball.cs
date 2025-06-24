@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class Ball : Powerups
 {
+    public Ball()
+    {
+        powerupType = 1;
+    }
     public override void OnPlayerHit(GameController controller)
     {
         controller.StartCoroutine(HandleBall(controller));

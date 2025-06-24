@@ -3,8 +3,14 @@ using UnityEngine.SceneManagement;
 
 public abstract class Obstacle : ObjectBase
 {
+    public int obstaclesTaken;
     protected void DeleteHeart(GameController controller)
     {
+        obstaclesTaken = PlayerPrefs.GetInt("Obstacles taken");
+        obstaclesTaken++;
+        PlayerPrefs.SetInt("Obstacles taken", obstaclesTaken);
+        Debug.Log("Obstacles taken: " + obstaclesTaken);
+
         if (PlayerPrefs.GetInt("TNT taken") == 0)
         {
             controller.hearts[controller.heartCount].SetActive(false);
@@ -12,26 +18,25 @@ public abstract class Obstacle : ObjectBase
 
             bool isLevelMode = PlayerPrefs.GetInt("isLevelMode", 0) == 1;
 
-            if (isLevelMode)
+            if (controller.heartCount < 0)
             {
-                if (controller.heartCount < 0)
+                PlayerPrefs.SetInt("Final Distance", (int)controller.distance);
+                PlayerPrefs.SetFloat("Final Time", (float)controller.timer);
+                if (isLevelMode)
                 {
-                    PlayerPrefs.SetInt("Final Distance", (int)controller.distance);
-                    PlayerPrefs.SetFloat("Final Time", (int)controller.timer);
-                    PlayerPrefs.Save();
-                    SceneManager.LoadScene("GameOverScene");
+                    PlayerPrefs.SetInt("GoalReached", 0);
                 }
+                PlayerPrefs.Save();
+                SceneManager.LoadScene("GameOverScene");
             }
-            else
-            {
-                SceneManager.LoadScene("LevelFinishedScene");  
-            }
+            
 
         }
         else
         {
             PlayerPrefs.SetInt("TNT taken", 0);
             controller.tnt.SetActive(false);
+            controller.tntTaken = false;
         }
    }
 }

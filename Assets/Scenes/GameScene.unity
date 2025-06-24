@@ -1044,7 +1044,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1020376287}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.77, y: 1.53, z: -0.055511765}
+  m_LocalPosition: {x: 14.22, y: 1.53, z: -0.055511765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1325,6 +1325,8 @@ MonoBehaviour:
     - {fileID: 5400017985410230097, guid: ca5bd44fc01c6ca418ff375ae5729d39, type: 3}
     - {fileID: 5400017985410230097, guid: 5b371eab6f5f84442ba2658804be53c8, type: 3}
     - {fileID: 5400017985410230097, guid: d722e68c5c617aa46af6f97dd050453a, type: 3}
+    - {fileID: 5400017985410230097, guid: b44898fad69b5ed48aee9ac6a776e2b5, type: 3}
+    - {fileID: 5400017985410230097, guid: 812a317ce9857b64caf20f44b930945f, type: 3}
   - obstacles:
     - {fileID: 5400017985410230097, guid: 697fef8c44d1a4443898224a58265d59, type: 3}
     - {fileID: 5400017985410230097, guid: ce834805a3bdea542a074be65166b3d1, type: 3}
@@ -1339,9 +1341,11 @@ MonoBehaviour:
   goals:
   - Finish 1000m in 30s
   - Hit 10 obstacles and don't die
-  - Pick up each of 5 powerups in a single run
+  - Pick up each of 5 powerups
   - Reach 1000m without collecting anything
-  - Use a TNT to destroy an obstacle, then hit a log
+  - Use a TNT to destroy a log
+  powerupsCollected: 0000000000
+  tntTaken: 0
 --- !u!1 &1295430783
 GameObject:
   m_ObjectHideFlags: 0
@@ -1369,7 +1373,7 @@ RectTransform:
   m_GameObject: {fileID: 1295430783}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.19, y: 0.19, z: 0.19}
+  m_LocalScale: {x: 0.15110344, y: 0.15110344, z: 0.15110344}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2086441836}
@@ -1377,7 +1381,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -216, y: -9.800018}
+  m_AnchoredPosition: {x: -376, y: -9.800018}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1295430785
@@ -1556,7 +1560,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1564025128}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.77, y: -2.38, z: -0.055511765}
+  m_LocalPosition: {x: 14.22, y: -2.38, z: -0.055511765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1587,7 +1591,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1599076214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.77, y: -4.43, z: -0.055511765}
+  m_LocalPosition: {x: 14.22, y: -4.43, z: -0.055511765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1728,7 +1732,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1869086131}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.77, y: -0.37, z: -0.055511765}
+  m_LocalPosition: {x: 14.22, y: -0.37, z: -0.055511765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
