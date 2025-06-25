@@ -67,5 +67,12 @@ public class MainMenuController : MonoBehaviour
     {
         errorPopupPanel.SetActive(false);
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Game is quitting..."); // For debugging purposes
+    }
 }
+
 

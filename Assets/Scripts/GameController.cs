@@ -128,7 +128,7 @@ public class GameController : MonoBehaviour
                 Powerups powerup = obj as Powerups;
                 if (powerup != null)
                 {
-
+                    PlayerPrefs.SetInt("Total Powerups", PlayerPrefs.GetInt("Total Powerups", 0) + 1);
                     hasCollectedAnything = true; 
                     int index = powerup.powerupType;
                     if (index >= 0 && index < powerupsCollected.Length)

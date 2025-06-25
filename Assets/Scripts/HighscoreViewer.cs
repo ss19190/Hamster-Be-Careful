@@ -39,11 +39,12 @@ public class HighscoreViewer : MonoBehaviour
             {
                 string username = parts[0];
                 entriesForDistance.Add(new HighscoreEntry(username, distance, time));
-                entriesForDistance = entriesForDistance.OrderByDescending(e => e.distance).ToList(); // sort by distance
                 entriesForTime.Add(new HighscoreEntry(username, distance, time));
-                entriesForTime = entriesForTime.OrderByDescending(e => e.time).ToList(); // sort by time
             }
         }
+
+        entriesForDistance = entriesForDistance.OrderByDescending(e => e.distance).ToList(); // sort by distance
+        entriesForTime = entriesForTime.OrderByDescending(e => e.time).ToList(); // sort by time
     }
 
     void DisplayHighscores()
@@ -51,20 +52,27 @@ public class HighscoreViewer : MonoBehaviour
         distanceText.text = "DISTANCE\n------------\n";
         timeText.text = "TIME\n------------\n";
 
-        for (int i = 0; i < entriesForDistance.Count; i++)
+        var topDistance = entriesForDistance.GetRange(0, Mathf.Min(5, entriesForDistance.Count));
+        var topTime = entriesForTime.GetRange(0, Mathf.Min(5, entriesForTime.Count));
+
+        for (int i = 0; i < topDistance.Count; i++)
         {
-            var e = entriesForDistance[i];
+            var e = topDistance[i];
             distanceText.text += $"{i + 1}. {e.username} - {e.distance:F2}\n";
         }
-        for (int i = 0; i < entriesForTime.Count; i++)
+
+        for (int i = 0; i < topTime.Count; i++)
         {
-            var e = entriesForTime[i];
+            var e = topTime[i];
             timeText.text += $"{i + 1}. {e.username} - {e.time:F2}\n";
         }
     }
+
+
     public void MainMenuButtonClicked()
     {
         SceneManager.LoadScene("MainMenu");
     }
 }
+
 
